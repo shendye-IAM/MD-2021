@@ -22,7 +22,7 @@ Repository for Molecular Dynamics course 2021-2022
 <p align="justify">
 <ul>
 <li>Introduction & Motivation</li>
-<li>Methods of Materials</li>
+<li>Methods & Materials</li>
 <li>Results</li>
 <li>Discussion</li>
 <li>Summary</li>
