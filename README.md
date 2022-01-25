@@ -7,10 +7,9 @@ Repository for Molecular Dynamics course 2021-2022
   <summary>Table of Contents</summary>
   <ol>
     <li><a href="#about-the-project"> ➤ About The Project</a></li>
-    <li><a href="#overview"> ➤ Overview</a></li>
+    <li><a href="#contents-of-the-project"> ➤ Contents of the Project</a></li>
     <li><a href="#project-files-description"> ➤ Project Files Description</a></li>
     <li><a href="#getting-started"> ➤ Getting Started</a></li>
-    <li><a href="#references"> ➤ References</a></li>
     <li><a href="#credits"> ➤ Credits</a></li>
   </ol>
 </details>
@@ -18,19 +17,17 @@ Repository for Molecular Dynamics course 2021-2022
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
 <!-- ABOUT THE PROJECT -->
-<h2 id="about-the-project"> :pencil: About The Project</h2>
+<h2 id="contents-of-the-project"> :pencil: Contents of the Project</h2>
 
-<p align="justify"> 
-The aim of the project is to ...
-</p>
-
-![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
-
-<!-- OVERVIEW -->
-<h2 id="overview"> :cloud: Overview</h2>  
-
-<p align="justify"> 
-  In this project we ...
+<p align="justify">
+<ul>
+<li>Introduction & Motivation</li>
+<li>Methods of Materials</li>
+<li>Results</li>
+<li>Discussion</li>
+<li>Summary</li>
+<li>References</li>
+</ul> 
 </p>
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
@@ -39,12 +36,11 @@ The aim of the project is to ...
 <h2 id="project-files-description"> :floppy_disk: Project Files Description</h2>
 
 <ul>
-  <li><b>create_structure.py</b> - methods to create structure</li>
-  <li><b>atom.py</b> - data structure for storing atom</li>
-  <li><b>build_model.py</b> - File to build the model for lammps</li>
-  <li><b>run.py</b> - CLI for executing certain methods</li>
-  <li><b>util.py</b> - Useful data structures for implementing mathematical and structure related utilities.</li>
-  <li>report_mat1_mat2_year.pdf</li>
+  <li><b>Tex Files</b> - LaTeX files</li>
+  <li><b>report_mat1_mat2.pdf</b> - pdf of the report</li>
+  <li><b>src</b> - Source code to reproduce the results</li>
+  <li><b>data</b> - folder with all the data files</li>
+  <li><b>additional </b> - Other useful resources if any</li>
 </ul>
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
@@ -58,16 +54,6 @@ The aim of the project is to ...
 <p>You can see the list of all options and their default values via:</p>
 <pre><code>$ python run.py --help</code></pre>
 <i>Note that all of the commands that appear in this project also appear in <code>commands.txt</code>, for easy copying and pasting.</i>
-
-![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
-<!-- GETTING STARTED -->
-<h2 id="references"> :books: References</h2>
-<ol>
-    <li>
-    Patil SP, Shendye P, Markert B. Molecular dynamics simulations of silica aerogel nanocomposites reinforced by glass fibers, graphene sheets and carbon nanotubes: A comparison study on mechanical properties. Composites Part B: Engineering. 2020 Jun 1;190:107884.
-    </li>
-</ol>
-
 
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
