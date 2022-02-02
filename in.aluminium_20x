@@ -1,0 +1,84 @@
+# Input file for Aluminium crystal
+
+# Run command: lmp -in in.aluminium_20x
+
+# ------------------------ ATOM INITIALIZATION ----------------------------
+
+units 			metal
+dimension		3
+boundary		p	p	p
+atom_style		atomic
+
+print "**** Model initialized ****"
+
+
+# ----------------------- ATOM DEFINITION ----------------------------
+
+lattice			fcc 4.05
+region			whole block 0 10 0 10 0 10
+region			crystal block 0 10 0 10 0 10
+create_box		1 whole
+create_atoms	1 region crystal
+
+print "**** Atoms generated ****"
+
+
+# ------------------------ FORCE FIELDS / POTENTIAL ------------------------------
+
+pair_style		lj/cut 2.5
+pair_coeff		* * .3920 2.62 2.5
+
+# pair_style		eam/alloy
+# pair_coeff		* * Al_Zhou04.eam.alloy Al
+
+print "**** Force field selected ****"
+
+
+# ------------------------- SETTINGS ---------------------------------
+
+mass				1 26.982
+
+thermo_style		custom step pe ke etotal temp press vol density cpu
+thermo				100
+
+dump			 	1 all custom 100 dump_locations_lj_20x id type x y z
+
+reset_timestep		0
+
+
+# ------------------------ STEP 0: MINIMIZATION ---------------------------------
+
+# minimize 			0 0 100 1000
+# min_style			cg
+
+
+
+# ------------------------ STEP 1: EQUILIBRATION ---------------------------------
+
+velocity 			all create 300.0 199 mom yes rot no dist gaussian
+
+fix					equilibration all npt temp 300 300 5 iso 1 1 1 drag 0.2
+# fix					equilibration all nvt temp 300 300 1 drag 0.2
+
+timestep 			0.001
+
+run					10000
+
+unfix				equilibration
+
+
+# ------------------------ BINDING ------------------------------
+
+pair_style			lj/cut 2.5
+pair_coeff			* * 5.0 2.62 2.5
+
+
+fix					equilibration2 all nve
+fix					equilibration3 all temp/rescale 1000 300 300 0.1 0.9
+
+timestep 			0.001
+run					10000
+
+unfix				equilibration2
+unfix				equilibration3
+
