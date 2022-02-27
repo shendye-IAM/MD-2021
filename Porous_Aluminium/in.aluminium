@@ -1,29 +1,33 @@
 # Input file for Aluminium crystal
 
-# Run command: lmp -in in.aluminium
+# Run command:  lmp -in in.aluminium
 
-# ------------------------ ATOM INITIALIZATION ----------------------------
+
+
+# ------------------------- ATOM INITIALIZATION -------------------------
 
 units 			metal
 dimension		3
 boundary		p	p	p
 atom_style		atomic
 
-print "**** Model initialized ****"
+print "******************** Model initialized ********************"
 
 
-# ----------------------- ATOM DEFINITION ----------------------------
+
+# ------------------------- ATOM DEFINITION -------------------------
 
 lattice			fcc 4.05
-region			whole block 0 10 0 10 0 10
-region			crystal block 0 10 0 10 0 10
+region			whole block 0 30 0 30 0 30
+region			crystal block 0 30 0 30 0 30
 create_box		1 whole
 create_atoms	1 region crystal
 
-print "**** Atoms generated ****"
+print "******************** Atoms generated ********************"
 
 
-# ------------------------ FORCE FIELDS / POTENTIAL ------------------------------
+
+# ------------------------- FORCE FIELDS / POTENTIAL -------------------------
 
 pair_style		lj/cut 2.5
 pair_coeff		* * .3920 2.62 2.5
@@ -31,33 +35,30 @@ pair_coeff		* * .3920 2.62 2.5
 # pair_style		eam/alloy
 # pair_coeff		* * Al_Zhou04.eam.alloy Al
 
-print "**** Force field selected ****"
+print "******************** Force field set ********************"
 
 
-# ------------------------- SETTINGS ---------------------------------
+
+# ------------------------- SETTINGS -------------------------
 
 mass				1 26.982
 
 thermo_style		custom step pe ke etotal temp press vol density cpu
 thermo				100
 
-dump			 	1 all custom 100 dump_locations_lj id type x y z
+dump			 	1 all custom 100 dump_loc_atom-108000_ts-10000 id type x y z
 
 reset_timestep		0
 
 
-# ------------------------ STEP 0: MINIMIZATION ---------------------------------
 
-# minimize 			0 0 100 1000
-# min_style			cg
+# ------------------------- STEP 1: EQUILIBRATION -------------------------
 
-
-# ------------------------ STEP 1: EQUILIBRATION ---------------------------------
+print "******************** Equilibration at 300 K ********************"
 
 velocity 			all create 300.0 199 mom yes rot no dist gaussian
 
-fix					equilibration all npt temp 300 300 5 iso 1 1 1 drag 0.2
-# fix					equilibration all nvt temp 300 300 1 drag 0.2
+fix					equilibration all npt temp 300 300 0.1 iso 1 1 1 drag 0.2
 
 timestep 			0.001
 
@@ -66,16 +67,17 @@ run					10000
 unfix				equilibration
 
 
-# ------ STEP 2: INCREASE TEMPERATURE -----------------
+
+# ------------------------- STEP 2: INCREASE TEMPERATURE -------------------------
+
+print "******************** Increasing temperature to 700 K ********************"
 
 neighbor			0.5 bin
 neigh_modify		every 10 delay 0 check yes
 
-# velocity			all create 1000.0 199 mom yes rot yes dist gaussian
+velocity			all create 700.0 199 mom yes rot yes dist gaussian
 
-fix					inc_temp all npt temp 1000.0 1000.0 1 iso 1 1 1 drag 0.2
-
-# fix					inc_temp all nvt temp 300.0 1000.0 1 drag 0.2
+fix					inc_temp all npt temp 700.0 700.0 0.1 iso 1 1 1 drag 0.2
 
 timestep 			0.001
 
@@ -85,134 +87,147 @@ unfix 				inc_temp
 
 
 
-# -----------------------------------------------------------------------------------------
+# ------------------------- BINDING FORCE FIELDS / POTENTIAL -------------------------
 
-############### BINDING IS REQUIRED HERE #################################
-
-# ------------------------ 20x FORCE FIELDS / POTENTIAL ------------------------------
-
-pair_style		lj/cut 2.5
-pair_coeff		* * 7.84 2.62 2.5
+pair_style		lj/cut 10
+pair_coeff		* * 3.920 2.62 10
 
 # pair_style		eam/alloy
 # pair_coeff		* * Al_Zhou04.eam.alloy Al
 
-print "**** 20x Force field selected ****"
+print "******************** Force field altered for binding ********************"
 
 
-# ------ STEP 3a: COOLING 1000 - 800 -----------------
+
+# ------------------------- STEP 3: NVE INTERACTION  -------------------------
+
+print "******************** NVE interaction ********************"
 
 neighbor			0.5 bin
 neigh_modify		every 10 delay 0 check yes
 
-# velocity			all create 2 800 199 mom yes rot yes dist gaussian
-
-fix					2 all npt temp 800.0 800.0 1 iso 1 1 1 drag 0.2
-
-# fix					2 all nvt temp 1000.0 800.0 1 drag 0.2
+fix					nve all nve
+fix					temp_rescale all temp/rescale 100 700 700 0.1 0.9
 
 timestep 			0.001
 
 run 				10000
 
+unfix 				temp_rescale
+unfix 				nve
+
+
+
+# ------------------------- STEP 4a: COOLING 700 - 600  -------------------------
+
+print "******************** Decreasing temperature from 700 K to 600 K ********************"
+
+neighbor			0.5 bin
+neigh_modify		every 10 delay 0 check yes
+
+fix					2 all npt temp 600.0 600.0 0.1 iso 1 1 1 drag 0.2
+fix					temp_rescale all temp/rescale 100 600 600 0.1 0.9
+
+timestep 			0.001
+
+run 				10000	# 8000 to 12000
+
+unfix 				temp_rescale
 unfix 				2
 
-# ------ STEP 3b: COOLING 800 - 600 -----------------
+
+
+# ------------------------- STEP 4b: COOLING 600 - 400 -------------------------
+
+print "******************** Decreasing temperature from 600 K to 400 K ********************"
 
 neighbor			0.5 bin
 neigh_modify		every 10 delay 0 check yes
 
-# velocity			all create 3 600 199 mom yes rot yes dist gaussian
-
-fix					3 all npt temp 600.0 600.0 1 iso 1 1 1 drag 0.2
+fix					3 all npt temp 400.0 400.0 0.1 iso 1 1 1 drag 0.2
+fix					temp_rescale all temp/rescale 100 400 400 0.1 0.9
 
 timestep 			0.001
 
-run 				20000
+run 				10000	# 8000 to 12000
 
+unfix 				temp_rescale
 unfix 				3
 
-# ------ STEP 3c: COOLING 600 - 400 -----------------
+
+
+# ------------------------- STEP 4c: COOLING 400 - 300 -------------------------
+
+print "******************** Decreasing temperature from 400 K to 300 K ********************"
 
 neighbor			0.5 bin
 neigh_modify		every 10 delay 0 check yes
 
-# velocity			all create 4 400 199 mom yes rot yes dist gaussian
-
-fix					4 all npt temp 400.0 400.0 1 iso 1 1 1 drag 0.2
+fix					4 all npt temp 300.0 300.0 0.1 iso 1 1 1 drag 0.2
+fix					temp_rescale all temp/rescale 100 300 300 0.1 0.9
 
 timestep 			0.001
 
-run 				10000
+run 				10000	# 8000 to 12000
 
+unfix				temp_rescale
 unfix 				4
 
 
-# ------ STEP 3d: COOLING 400 - 200 -----------------
 
-neighbor			0.5 bin
-neigh_modify		every 10 delay 0 check yes
+# ------------------------- STEP 5: EQUILIBRATION 2 -------------------------
 
-# velocity			all create 5 200 199 mom yes rot yes dist gaussian
+print "******************** Equilibration at 300 K ********************"
 
-fix					5 all npt temp 200.0 200.0 1 iso 1 1 1 drag 0.2
-
-timestep 			0.001
-
-run 				10000
-
-unfix 				5
-
-
-# ------ STEP 3e: COOLING 200 - 0 -----------------
-
-neighbor			0.5 bin
-neigh_modify		every 10 delay 0 check yes
-
-# velocity			all create 6 0 199 mom yes rot yes dist gaussian
-
-fix					6 all npt temp 1 1 1 iso 1 1 1 drag 0.2
-
-timestep 			0.001
-
-run 				10000
-
-unfix 				6
-
-
-# ------ STEP 4: TO ROOM TEMPERATURE 0 - 300 -----------------
-
-neighbor			0.5 bin
-neigh_modify		every 10 delay 0 check yes
-
-# velocity			all create 6 0 199 mom yes rot yes dist gaussian
-
-fix					6 all npt temp 300 300 1 iso 1 1 1 drag 0.2
-
-timestep 			0.001
-
-run 				20000
-
-unfix 				6
-
-# ------------------------ STEP 5: EQUILIBRATION 2 ---------------------------------
-
-# velocity 			all create 300.0 199 mom yes rot no dist gaussian
-
-fix					equilibration2 all npt temp 300 300 5 iso 1 1 1 drag 0.2
+fix					equilibration2 all nve
+fix					temp_rescale all temp/rescale 100 300 300 0.1 0.9
 
 timestep 			0.001
 
 run					10000
 
+unfix				temp_rescale
 unfix				equilibration2
 
-# ------------------------ OUTPUTS --------------------------------------------
 
-# write_data			data1.dat
 
-######################################
+# ------------------------- STEP : INSTANTANEOUS EXPANSION/CONTRACTION -------------------------
 
-# SIMULATION DONE
+# print "******************** Instantaneous contraction to required density ********************"
+# timestep			0.0005
+# fix				inst2 all nvt temp 300 300 0.05
+# fix				inst1 all deform 1 x scale 0.79 y scale 0.79 z scale 0.79
+# run				1000
+# unfix				inst1
+# unfix				inst2
 
-print "**** End ****"
+
+
+# ------------------------- STEP : EQUILIBRATION 3 -------------------------
+
+# print "******************** Equilibration at 300 K ********************"
+
+# fix				equilibration3 all nve
+# fix				temp_rescale all temp/rescale 100 300 300 0.1 0.9
+
+# timestep 			0.001
+
+# run				10000
+
+# unfix				temp_rescale
+# unfix				equilibration3
+
+
+
+# ------------------------- STEP 6: MINIMIZATION -------------------------
+
+print "******************** Energy minimization ********************"
+
+minimize 			0.01 0 1000 1000	# What does the last 1000 refer to?
+min_style			cg
+
+
+
+# ------------------------- SIMULATION DONE -------------------------
+
+print "******************** End ********************"
