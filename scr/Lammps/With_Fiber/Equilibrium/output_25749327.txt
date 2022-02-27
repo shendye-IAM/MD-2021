@@ -1,0 +1,387 @@
+(OK) Loading CHEMISTRY environment
+(OK) Loading lammps 12Dec18
+(!!) NOTE: LAMMPS binary is lmp_rwth
+srun: TOPOLOGY: warning -- no switch can reach all nodes through its descendants.Do not use route/topology
+LAMMPS (12 Dec 2018)
+  using 1 OpenMP thread(s) per MPI task
+Reading data file ...
+  orthogonal box = (0 0 0) to (41 46 46)
+  2 by 2 by 3 MPI processor grid
+  reading atoms ...
+  2108 atoms
+Finding 1-2 1-3 1-4 neighbors ...
+  special bond factors lj:   0          0          0         
+  special bond factors coul: 0          0          0         
+  0 = max # of 1-2 neighbors
+  0 = max # of 1-3 neighbors
+  0 = max # of 1-4 neighbors
+  1 = max # of special neighbors
+Reading potential file CH.airebo with DATE: 2011-10-25
+381 atoms in group clump1
+1 rigid bodies with 381 atoms
+Ewald initialization ...
+  using 12-bit tables for long-range coulomb (../kspace.cpp:321)
+  G vector (1/distance) = 1.00174
+  estimated absolute RMS force accuracy = 0.00195772
+  estimated relative force accuracy = 0.000135956
+  KSpace vectors: actual max1d max3d = 168694 44 352484
+                  kxmax kymax kzmax  = 40 44 44
+Neighbor list info ...
+  update every 1 steps, delay 0 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 12.2
+  ghost atom cutoff = 12.2
+  binsize = 6.1, bins = 7 8 8
+  7 neighbor lists, perpetual/occasional/extra = 7 0 0
+  (1) pair buck, perpetual, skip from (3)
+      attributes: half, newton on
+      pair build: skip
+      stencil: none
+      bin: none
+  (2) pair sw, perpetual, skip from (6)
+      attributes: full, newton on
+      pair build: skip
+      stencil: none
+      bin: none
+  (3) pair coul/long, perpetual, half/full from (6)
+      attributes: half, newton on
+      pair build: halffull/newton
+      stencil: none
+      bin: none
+  (4) pair lj/cut, perpetual, skip from (3)
+      attributes: half, newton on
+      pair build: skip
+      stencil: none
+      bin: none
+  (5) pair airebo, perpetual, skip from (7)
+      attributes: full, newton on, ghost
+      pair build: skip/ghost
+      stencil: none
+      bin: none
+  (6) neighbor class addition, perpetual
+      attributes: full, newton on
+      pair build: full/bin
+      stencil: full/bin/3d
+      bin: standard
+  (7) neighbor class addition, perpetual
+      attributes: full, newton on, ghost
+      pair build: full/bin/ghost
+      stencil: full/ghost/bin/3d
+      bin: standard
+Setting up cg style minimization ...
+  Unit style    : metal
+  Current step  : 0
+Per MPI rank memory allocation (min/avg/max) = 120.6 | 121 | 121.9 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+       0    121.93287    1965988.1            0    1966015.3 1.4928103e+08 
+       5    121.93287    369803.29            0    369830.53     31314811 
+      10    121.93287    214426.76            0       214454     19772111 
+      15    121.93287    92191.883            0    92219.118     10664493 
+      20    121.93287    20790.727            0    20817.963    5333226.3 
+      25    121.93287   -8610.6214            0   -8583.3862    3094118.3 
+      30    121.93287   -27972.661            0   -27945.426    1579625.1 
+      35    121.93287   -38073.846            0   -38046.611    805675.91 
+      40    121.93287   -44206.871            0   -44179.636    392873.37 
+      45    121.93287   -47362.709            0   -47335.474    188036.32 
+      50    121.93287    -48990.01            0   -48962.775    95931.929 
+      55    121.93287   -49943.046            0   -49915.811    57283.134 
+      60    121.93287   -50454.065            0    -50426.83     43634.18 
+      65    121.93287   -50679.987            0   -50652.751    38003.117 
+      70    121.93287   -50908.213            0   -50880.977    30940.509 
+      75    121.93287   -51067.106            0   -51039.871    24857.941 
+      80    121.93287   -51213.975            0    -51186.74    19165.959 
+      85    121.93287   -51335.987            0   -51308.752    14243.267 
+      90    121.93287   -51472.457            0   -51445.222    9261.9685 
+      95    121.93287   -51592.904            0   -51565.669     5490.395 
+      98    121.93287   -51656.071            0   -51628.836    3627.6836 
+Loop time of 23.0255 on 12 procs for 98 steps with 2108 atoms
+
+99.3% CPU use with 12 MPI tasks x 1 OpenMP threads
+
+Minimization stats:
+  Stopping criterion = energy tolerance
+  Energy initial, next-to-last, final = 
+         1965988.08102     -51651.2064752     -51656.0710531
+  Force two-norm initial, final = 9.43293e+06 28.563
+  Force max component initial, final = 1.64647e+06 7.53063
+  Final line search alpha, max atom move = 0.0088607 0.0667267
+  Iterations, force evaluations = 98 103
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.026174   | 0.048557   | 0.085162   |   9.1 |  0.21
+Bond    | 4.0531e-06 | 8.742e-06  | 2.1935e-05 |   0.0 |  0.00
+Kspace  | 12.836     | 17.544     | 22.836     |  71.8 | 76.19
+Neigh   | 0.033114   | 0.038488   | 0.046292   |   1.8 |  0.17
+Comm    | 0.04852    | 5.3853     | 10.119     | 130.5 | 23.39
+Output  | 0.0011857  | 0.0012097  | 0.0013926  |   0.2 |  0.01
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 0.008105   |            |       |  0.04
+
+Nlocal:    175.667 ave 224 max 125 min
+Histogram: 1 1 1 3 0 2 0 2 0 2
+Nghost:    1912.67 ave 1999 max 1838 min
+Histogram: 2 1 0 2 1 3 0 2 0 1
+Neighs:    1589.58 ave 2194 max 1062 min
+Histogram: 1 2 2 0 1 2 1 2 0 1
+FullNghs:  1761.67 ave 2279 max 1161 min
+Histogram: 2 1 1 0 1 1 1 2 1 2
+
+Total # of neighbors = 21140
+Ave neighs/atom = 10.0285
+Ave special neighs/atom = 0
+Neighbor list builds = 7
+Dangerous builds = 0
+WARNING: Changing velocities of atoms in rigid bodies. This has no effect unless rigid bodies are rebuild (../velocity.cpp:74)
+Ewald initialization ...
+  using 12-bit tables for long-range coulomb (../kspace.cpp:321)
+  G vector (1/distance) = 1.00174
+  estimated absolute RMS force accuracy = 0.00195772
+  estimated relative force accuracy = 0.000135956
+  KSpace vectors: actual max1d max3d = 168694 44 352484
+                  kxmax kymax kzmax  = 40 44 44
+WARNING: Changing velocities of atoms in rigid bodies. This has no effect unless rigid bodies are rebuild (../velocity.cpp:74)
+WARNING: One or more atoms are time integrated more than once (../modify.cpp:283)
+Neighbor list info ...
+  update every 1 steps, delay 0 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 12.2
+  ghost atom cutoff = 12.2
+  binsize = 6.1, bins = 7 8 8
+  7 neighbor lists, perpetual/occasional/extra = 7 0 0
+  (1) pair buck, perpetual, skip from (3)
+      attributes: half, newton on
+      pair build: skip
+      stencil: none
+      bin: none
+  (2) pair sw, perpetual, skip from (6)
+      attributes: full, newton on
+      pair build: skip
+      stencil: none
+      bin: none
+  (3) pair coul/long, perpetual, half/full from (6)
+      attributes: half, newton on
+      pair build: halffull/newton
+      stencil: none
+      bin: none
+  (4) pair lj/cut, perpetual, skip from (3)
+      attributes: half, newton on
+      pair build: skip
+      stencil: none
+      bin: none
+  (5) pair airebo, perpetual, skip from (7)
+      attributes: full, newton on, ghost
+      pair build: skip/ghost
+      stencil: none
+      bin: none
+  (6) neighbor class addition, perpetual
+      attributes: full, newton on
+      pair build: full/bin
+      stencil: full/bin/3d
+      bin: standard
+  (7) neighbor class addition, perpetual
+      attributes: full, newton on, ghost
+      pair build: full/bin/ghost
+      stencil: full/ghost/bin/3d
+      bin: standard
+Setting up Verlet run ...
+  Unit style    : metal
+  Current step  : 98
+  Time step     : 0.0001
+WARNING: Changing velocities of atoms in rigid bodies. This has no effect unless rigid bodies are rebuild (../velocity.cpp:74)
+WARNING: Changing velocities of atoms in rigid bodies. This has no effect unless rigid bodies are rebuild (../velocity.cpp:74)
+WARNING: Changing velocities of atoms in rigid bodies. This has no effect unless rigid bodies are rebuild (../velocity.cpp:74)
+WARNING: Changing velocities of atoms in rigid bodies. This has no effect unless rigid bodies are rebuild (../velocity.cpp:74)
+WARNING: Changing velocities of atoms in rigid bodies. This has no effect unless rigid bodies are rebuild (../velocity.cpp:74)
+WARNING: Changing velocities of atoms in rigid bodies. This has no effect unless rigid bodies are rebuild (../velocity.cpp:74)
+WARNING: Changing velocities of atoms in rigid bodies. This has no effect unless rigid bodies are rebuild (../velocity.cpp:74)
+WARNING: Changing velocities of atoms in rigid bodies. This has no effect unless rigid bodies are rebuild (../velocity.cpp:74)
+WARNING: Changing velocities of atoms in rigid bodies. This has no effect unless rigid bodies are rebuild (../velocity.cpp:74)
+WARNING: Changing velocities of atoms in rigid bodies. This has no effect unless rigid bodies are rebuild (../velocity.cpp:74)
+Per MPI rank memory allocation (min/avg/max) = 120.7 | 120.7 | 120.8 Mbytes
+Step Temp TotEng Press Volume 
+      98    243.59687   -51601.661   -210767.48        86756 
+    1000    345.01593    -51928.96   -3424.4538    80458.786 
+    2000    325.21044   -52195.254   -3268.6515    72715.361 
+    3000    316.09944    -52387.35   -1779.7467    66785.566 
+    4000     304.4456   -52514.777    6152.2614    66413.484 
+    5000    299.84262    -52618.39    4941.8688    64968.496 
+    6000    302.95465   -52708.734    4072.2099    63256.371 
+    7000    303.49668   -52757.428    -20671.68    62328.072 
+    8000    304.68299   -52787.179    3807.3526    59342.723 
+    9000     306.2449   -52836.268    1233.1614    58722.867 
+   10000    298.78706   -52863.157   -19060.677    59495.947 
+   11000    302.69797   -52884.571    1873.6889    56839.503 
+   12000    300.38808   -52912.478   -28567.602    56943.381 
+   13000    311.48065   -52947.867    15413.974    54936.816 
+   14000     302.2506   -52967.766    8336.8337    54772.241 
+   15000    307.12035   -53005.477   -17652.783    57204.164 
+   16000    294.96331    -53017.42   -22636.493     57049.53 
+   17000     296.7148   -53050.921    33014.402    56114.948 
+   18000    304.48899   -53055.054    31310.115     54774.79 
+   19000    301.03821   -53052.486   -25474.104    55502.929 
+   20000    299.91506   -53085.245    15023.515    54923.156 
+   21000    301.53338   -53077.706   -25311.762    54428.807 
+   22000    293.38381   -53096.113   -22854.229    53658.508 
+   23000    307.39849   -53109.235    23869.454    51461.753 
+   24000    305.88157   -53140.192    21721.328    52421.829 
+   25000    293.09182   -53146.654    22174.639    51905.618 
+   26000    302.08557   -53145.258   -26038.957    51866.688 
+   27000    312.72898   -53169.967    8535.6943    50311.026 
+   28000    297.05716   -53186.762   -19253.606    51392.582 
+   29000     296.9404   -53192.214   -3401.2625    49528.221 
+   30000    298.35134   -53209.453    20290.412    49583.188 
+   31000    306.17989   -53223.225    12007.082    49896.716 
+   32000    297.68523   -53225.986   -2337.5996    50053.773 
+   33000    294.48211   -53208.529     -33807.4    49427.957 
+   34000    304.91926   -53239.574   -6804.0536    49851.587 
+   35000     299.6753   -53229.661   -20135.791     49571.88 
+   36000    306.09271   -53229.365   -4566.7992    47277.439 
+   37000    301.56447   -53227.265   -791.46585    46894.195 
+   38000    300.23798   -53251.654   -14026.371    47869.415 
+   39000    305.44942   -53252.525   -25144.987    47543.444 
+   40000    308.66341   -53257.652   -1811.8994    46557.124 
+   41000    302.41542   -53261.108     34180.03    47499.476 
+   42000    295.96286   -53258.534   -6226.0856    46983.225 
+   43000    295.37773   -53258.056   -26040.617     48517.89 
+   44000    304.88378   -53265.092    5515.1302    46780.949 
+   45000    302.37045   -53272.427    227.41479    46544.755 
+   46000    300.34796   -53288.273    17193.367    47373.396 
+   47000    298.69514   -53296.653   -5946.6225    47950.208 
+   48000    302.75897   -53294.888   -20919.901    47695.433 
+   49000    297.71613   -53299.707    11403.627    46971.503 
+   50000    295.98419   -53291.949   -11998.323    47612.882 
+   51000    296.48127   -53282.682   -33930.182     47666.33 
+   52000    295.75727    -53286.93   -20398.712     46349.53 
+   53000    301.94218   -53293.161   -27199.426    45904.206 
+   54000    304.23041   -53291.604   -37761.841    46137.302 
+   55000    306.29174   -53302.746   -4877.7119     45803.81 
+   56000    293.86379   -53313.886    20174.508     46177.88 
+   57000    294.68315   -53310.999   -39127.189      47011.4 
+   58000    288.08596   -53316.812   -31349.276    46983.822 
+   59000    305.24965   -53323.272   -8882.1714    46235.704 
+   60000    307.07647    -53327.03   -7818.6016    46276.284 
+   61000    303.92172   -53330.346    -36643.48    47350.995 
+   62000     305.9678     -53339.9     14009.18     45997.97 
+   63000    300.76108   -53343.879    8045.4994    45960.204 
+   64000    303.79356   -53345.789    18711.821    46065.983 
+   65000    295.18434   -53351.743   -7964.5153    47639.269 
+   66000    302.17812   -53341.587   -18483.967    46162.973 
+   67000    301.38113    -53343.27    639.56474    45726.409 
+   68000    313.01332   -53343.548   -8354.3306    45832.329 
+   69000     304.6607   -53335.427   -35826.647    46992.094 
+   70000    307.63931   -53342.397     6028.806    45471.538 
+   71000    297.56999   -53359.886    5216.0232    46759.929 
+   72000    291.53847   -53356.164    1316.2546    47106.103 
+   73000      297.897   -53343.558   -8446.5564    45851.682 
+   74000    305.79035   -53346.391    29831.291    46276.791 
+   75000    296.34353   -53335.614   -31477.971    47432.385 
+   76000    301.68174   -53335.132   -38697.415    46767.997 
+   77000    300.60062    -53340.82    24554.315     45742.89 
+   78000    299.47996   -53347.099   -31557.214    46703.395 
+   79000    309.34959   -53358.631    9435.4136     46941.98 
+   80000    304.06554   -53352.107     19535.92    45834.516 
+   81000     306.3016   -53347.471    19247.982    45649.427 
+   82000    296.65967   -53357.046    27619.396    46713.978 
+   83000    297.81813   -53358.223    4385.3126    46349.143 
+   84000     292.6734   -53346.532   -31290.511    47136.702 
+   85000    300.50022   -53354.486    25066.864     46000.69 
+   86000    295.63508   -53362.322    13540.746    46019.649 
+   87000    304.18703   -53356.944    4774.3219    45514.192 
+   88000    312.46947   -53356.927    5282.9897    45546.219 
+   89000    280.77079   -53365.783   -3575.9646    47012.435 
+   90000    290.66341   -53370.359   -5845.8033    46708.788 
+   91000    306.62588   -53358.257    9606.9425    45494.133 
+   92000    296.81383   -53358.027    2397.4402    45624.724 
+   93000    300.94716   -53361.347   -25597.224    47069.826 
+   94000    303.41751   -53360.154   -13910.326    46033.785 
+   95000    294.36379   -53368.324    14781.392    47071.194 
+   96000    288.76575   -53363.553    2134.1698     47144.99 
+   97000    300.95633   -53368.062    18608.672    47353.541 
+   98000    298.51433   -53359.764    14335.084    45764.364 
+   99000    305.46945   -53358.333    4219.1066    45521.258 
+  100000    303.30355   -53365.097    11485.137    45669.354 
+  100098    298.41856   -53365.101    13187.092    45884.427 
+Loop time of 12493.8 on 12 procs for 100000 steps with 2108 atoms
+
+Performance: 0.069 ns/day, 347.050 hours/ns, 8.004 timesteps/s
+99.5% CPU use with 12 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 28.542     | 33.047     | 40.983     |  74.6 |  0.26
+Bond    | 0.011901   | 0.017273   | 0.023115   |   2.3 |  0.00
+Kspace  | 8663.9     | 10527      | 11870      | 733.4 | 84.26
+Neigh   | 308.64     | 327.52     | 341.58     |  63.4 |  2.62
+Comm    | 50.601     | 1413.6     | 3295.1     |2028.5 | 11.31
+Output  | 0.058013   | 0.05814    | 0.059213   |   0.1 |  0.00
+Modify  | 153.87     | 175.02     | 186.05     |  73.3 |  1.40
+Other   |            | 17.53      |            |       |  0.14
+
+Nlocal:    175.667 ave 193 max 131 min
+Histogram: 1 0 0 0 0 1 2 3 3 2
+Nghost:    2848.92 ave 2922 max 2738 min
+Histogram: 1 1 1 0 0 1 3 3 0 2
+Neighs:    2431.42 ave 2859 max 1564 min
+Histogram: 1 0 0 0 0 1 4 3 2 1
+FullNghs:  2601 ave 3361 max 1454 min
+Histogram: 1 0 0 0 1 4 3 2 0 1
+
+Total # of neighbors = 31497
+Ave neighs/atom = 14.9417
+Ave special neighs/atom = 0
+Neighbor list builds = 30468
+Dangerous builds = 1463
+System init for write_data ...
+Ewald initialization ...
+  using 12-bit tables for long-range coulomb (../kspace.cpp:321)
+  G vector (1/distance) = 1.01925
+  estimated absolute RMS force accuracy = 0.00175956
+  estimated relative force accuracy = 0.000122195
+  KSpace vectors: actual max1d max3d = 104228 45 376785
+                  kxmax kymax kzmax  = 34 31 45
+Neighbor list info ...
+  update every 1 steps, delay 0 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 12.2
+  ghost atom cutoff = 12.2
+  binsize = 6.1, bins = 6 5 8
+  7 neighbor lists, perpetual/occasional/extra = 7 0 0
+  (1) pair buck, perpetual, skip from (3)
+      attributes: half, newton on
+      pair build: skip
+      stencil: none
+      bin: none
+  (2) pair sw, perpetual, skip from (6)
+      attributes: full, newton on
+      pair build: skip
+      stencil: none
+      bin: none
+  (3) pair coul/long, perpetual, half/full from (6)
+      attributes: half, newton on
+      pair build: halffull/newton
+      stencil: none
+      bin: none
+  (4) pair lj/cut, perpetual, skip from (3)
+      attributes: half, newton on
+      pair build: skip
+      stencil: none
+      bin: none
+  (5) pair airebo, perpetual, skip from (7)
+      attributes: full, newton on, ghost
+      pair build: skip/ghost
+      stencil: none
+      bin: none
+  (6) neighbor class addition, perpetual
+      attributes: full, newton on
+      pair build: full/bin
+      stencil: full/bin/3d
+      bin: standard
+  (7) neighbor class addition, perpetual
+      attributes: full, newton on, ghost
+      pair build: full/bin/ghost
+      stencil: full/ghost/bin/3d
+      bin: standard
+Total wall time: 3:28:37
