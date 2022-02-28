@@ -1,0 +1,69 @@
+# Configuration File to perform equilibrium
+units		metal	# Definition of used Units
+dimension	3	# Definition of used dimensions
+processors	* * *	# Allowance to use the processors the simulations thinks to need
+boundary	p p p	# Definition of boundary conditions
+
+pair_style hybrid/overlay buck 3.0 sw coul/long 3.0 lj/cut 5.0 airebo 3.0
+kspace_style ewald 0.0001 #how to calculate long-range coulomb interaction
+# Definition of Attributes for the Atoms in the data-file, reading data
+atom_style  full # molecular+charge
+read_data   data.cement1   # Read specific data-file
+
+# interaction styles (Here to add)
+pair_coeff 1 1 buck 4369.01 0.29 0.0	#for buck, A and ro and C
+pair_coeff 2 2 buck 1171.52 0.29 0.0
+pair_coeff 3 3 buck 452.5051 0.29 0.0
+pair_coeff 4 4 buck 21.228 0.35 0.0
+pair_coeff 1 2 buck 1382.4811 0.29 0.0
+pair_coeff 1 3 buck 3557.62 0.29 0.0
+pair_coeff 2 3 buck 1848.7174 0.29 0.0
+pair_coeff 3 4 buck 248.6324 0.29 0.0
+pair_coeff 2 4 buck 430.6566 0.29 0.0
+pair_coeff 5 5 lj/cut 0.0537 2.8	# C (27 K = 0.0537 kcal/mol, energy units; distance units)
+pair_coeff 1 5 lj/cut 0.0000228325 4.480
+pair_coeff 2 5 lj/cut 0.0000138095 3.351
+pair_coeff 3 5 lj/cut 0.00401324 3.282
+pair_coeff * * airebo CH.airebo NULL NULL NULL H C
+pair_coeff * * coul/long
+pair_coeff * * sw potential.sw NULL Si O NULL NULL
+
+velocity all create 100.0 53244 dist gaussian mom no rot no
+
+# Definition of the different groups
+group clump1 id <> 1728 2108
+
+
+# Fix assigned to the groups
+fix 111 clump1 rigid/nve single
+
+# Performing the simulation (Here to add)
+neighbor 2.0 bin
+neigh_modify every 1 delay 0 check yes
+#equilibrate
+min_style cg
+thermo 5
+minimize 1.0e-4 1.0e-6 120 1000
+# 300-NPT
+#velocity all create 300.0 5812775
+# fix 1 all npt 300.0 300.0 0.001 xyz 0.0 0.0 1.0 drag 1.0
+#fix 1 all npt temp 300.0 300.0 0.001 aniso 0.0 0.0 0.005 drag 2.0
+#thermo 1000
+#thermo_style custom step temp etotal press vol
+#thermo_modify flush yes
+#dump 2 all custom 1000 equlibration.csh id type x y z
+#timestep 0.0001
+#run 10000
+#unfix 1
+# Deform
+# ------
+fix 3 all deform 1 z erate 0.0008
+compute deftemp all temp/deform
+compute 4 all pressure deftemp
+thermo 1000
+thermo_style custom step temp etotal pxx pyy pzz press vol lx ly lz 
+dump 3 all custom 1000 tension_z.csh id type x y z
+reset_timestep 0
+timestep 0.0001
+run 500000
+write_data data.cement2
